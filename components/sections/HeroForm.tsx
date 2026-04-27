@@ -18,10 +18,23 @@ const SPECIALTIES = [
 export default function HeroForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage("");
+
     const form = e.currentTarget;
+    const formData = new FormData(form);
+    const data = {
+      name: (formData.get("name") as string)?.trim() || "",
+      email: (formData.get("email") as string)?.trim() || "",
+      phone: (formData.get("phone") as string)?.trim() || "",
+      practice: (formData.get("practice") as string)?.trim() || "",
+      specialty: (formData.get("specialty") as string) || "",
+    };
+
+    // Validate required fields
     const inputs = form.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
       "[required]",
     );
@@ -30,24 +43,52 @@ export default function HeroForm() {
     inputs.forEach((inp) => {
       if (!inp.value.trim()) {
         inp.style.borderColor = "#e05270";
+        inp.style.boxShadow = "0 0 0 3px rgba(224, 82, 112, .12)";
         valid = false;
         inp.addEventListener(
           "input",
           () => {
             inp.style.borderColor = "";
+            inp.style.boxShadow = "";
           },
           { once: true },
         );
       }
     });
 
-    if (!valid) return;
+    if (!valid) {
+      setErrorMessage("Please fill all required fields");
+      return;
+    }
+
+    // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      setErrorMessage("Please enter a valid email address");
+      return;
+    }
 
     setIsLoading(true);
-    setTimeout(() => {
-      setIsSubmitted(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+      } else {
+        setErrorMessage(result.message || "Something went wrong");
+      }
+    } catch (error) {
+      setErrorMessage("Network error. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 1100);
+    }
   };
 
   if (isSubmitted) {
@@ -69,7 +110,11 @@ export default function HeroForm() {
             You're Confirmed! 🎉
           </div>
           <p
-            style={{ fontSize: "13px", color: "var(--muted)", lineHeight: 1.6 }}
+            style={{
+              fontSize: "13px",
+              color: "var(--muted)",
+              lineHeight: 1.6,
+            }}
           >
             A billing specialist will call you within{" "}
             <strong style={{ color: "var(--navy)" }}>1 business hour</strong>.
@@ -102,6 +147,7 @@ export default function HeroForm() {
             className="hform-input"
             type="text"
             id="hf-name"
+            name="name"
             placeholder="Full Name"
             required
             autoComplete="name"
@@ -110,6 +156,7 @@ export default function HeroForm() {
             className="hform-input"
             type="email"
             id="hf-email"
+            name="email"
             placeholder="Work Email"
             required
             autoComplete="email"
@@ -118,6 +165,7 @@ export default function HeroForm() {
             className="hform-input"
             type="tel"
             id="hf-phone"
+            name="phone"
             placeholder="Phone Number"
             required
             autoComplete="tel"
@@ -128,18 +176,52 @@ export default function HeroForm() {
             className="hform-input"
             type="text"
             id="hf-practice"
+            name="practice"
             placeholder="Practice / Organization Name"
             required
           />
-          <select className="hform-input" id="hf-spec" required defaultValue="">
+          <select
+            className="hform-input"
+            id="hf-spec"
+            name="specialty"
+            required
+            defaultValue=""
+            style={{
+              appearance: "none",
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238eabaa' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "right 10px center",
+              paddingRight: "30px",
+              cursor: "pointer",
+            }}
+          >
             <option value="" disabled>
               Select Specialty
             </option>
             {SPECIALTIES.map((spec) => (
-              <option key={spec}>{spec}</option>
+              <option key={spec} value={spec}>
+                {spec}
+              </option>
             ))}
           </select>
         </div>
+
+        {/* Error Message */}
+        {errorMessage && (
+          <div
+            style={{
+              color: "#e05270",
+              fontSize: "12px",
+              fontWeight: 600,
+              marginBottom: "10px",
+              textAlign: "center",
+            }}
+          >
+            {errorMessage}
+          </div>
+        )}
+
         <button
           className="hform-btn"
           type="submit"
