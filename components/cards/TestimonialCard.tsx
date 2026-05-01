@@ -20,7 +20,7 @@ export default function TestimonialCard({
           <div key={i} className="star" />
         ))}
       </div>
-      <div className="testi-q">{quote}</div>
+      <div className="card-p">{quote}</div>
       <div className="testi-author">
         <div className="avatar">{authorInitials}</div>
         <div>

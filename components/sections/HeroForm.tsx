@@ -2,19 +2,6 @@
 
 import { useState } from "react";
 
-const SPECIALTIES = [
-  "Family Medicine",
-  "Internal Medicine",
-  "Cardiology",
-  "Orthopedics",
-  "Pediatrics",
-  "Behavioral Health",
-  "Dermatology",
-  "Urgent Care",
-  "Telehealth",
-  "Other",
-];
-
 export default function HeroForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +17,6 @@ export default function HeroForm() {
       name: (formData.get("name") as string)?.trim() || "",
       email: (formData.get("email") as string)?.trim() || "",
       phone: (formData.get("phone") as string)?.trim() || "",
-      practice: (formData.get("practice") as string)?.trim() || "",
-      specialty: (formData.get("specialty") as string) || "",
     };
 
     // Validate required fields
@@ -129,8 +114,8 @@ export default function HeroForm() {
     <div className="hero-inline-form" id="heroFormWrap">
       <div className="hform-label">
         <svg
-          width="13"
-          height="13"
+          width="28"
+          height="28"
           viewBox="0 0 24 24"
           fill="none"
           stroke="#2c8d93"
@@ -171,41 +156,6 @@ export default function HeroForm() {
             autoComplete="tel"
           />
         </div>
-        <div className="hform-row2">
-          <input
-            className="hform-input"
-            type="text"
-            id="hf-practice"
-            name="practice"
-            placeholder="Practice / Organization Name"
-            required
-          />
-          <select
-            className="hform-input"
-            id="hf-spec"
-            name="specialty"
-            required
-            defaultValue=""
-            style={{
-              appearance: "none",
-              backgroundImage:
-                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238eabaa' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "right 10px center",
-              paddingRight: "30px",
-              cursor: "pointer",
-            }}
-          >
-            <option value="" disabled>
-              Select Specialty
-            </option>
-            {SPECIALTIES.map((spec) => (
-              <option key={spec} value={spec}>
-                {spec}
-              </option>
-            ))}
-          </select>
-        </div>
 
         {/* Error Message */}
         {errorMessage && (
@@ -245,8 +195,8 @@ export default function HeroForm() {
         </button>
         <div className="hform-note">
           <svg
-            width="11"
-            height="11"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#8eabaa"

@@ -8,7 +8,6 @@ import Services from "@/components/sections/Services";
 import Specialties from "@/components/sections/Specialties";
 import Testimonials from "@/components/sections/Testimonials";
 import WhyUs from "@/components/sections/WhyUs";
-import Ticker from "@/components/ui/Ticker";
 
 export default function Home() {
   return (
@@ -16,7 +15,6 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Ticker />
         <Services />
         <RCMProcess />
         <WhyUs />

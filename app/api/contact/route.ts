@@ -4,10 +4,10 @@ import nodemailer from "nodemailer";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, practice, specialty } = body;
+    const { name, email, phone } = body;
 
     // Validate required fields
-    if (!name || !email || !phone || !practice || !specialty) {
+    if (!name || !email || !phone) {
       return NextResponse.json(
         { success: false, message: "All fields are required" },
         { status: 400 },
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       from: `"ClinoraMedBill Form" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_TO,
       replyTo: email,
-      subject: `🔔 New Consultation Request from ${name} - ${practice}`,
+      subject: `🔔 New Consultation Request from ${name}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -79,14 +79,6 @@ export async function POST(request: NextRequest) {
                 <div class="field-label">📞 Phone Number</div>
                 <div class="field-value">${phone}</div>
               </div>
-              <div class="field">
-                <div class="field-label">🏥 Practice / Organization</div>
-                <div class="field-value highlight">${practice}</div>
-              </div>
-              <div class="field">
-                <div class="field-label">🩺 Specialty</div>
-                <div class="field-value">${specialty}</div>
-              </div>
               <div style="text-align: center;">
                 <span class="badge">📅 Submitted: ${new Date().toLocaleString("en-US", { timeZone: "America/Chicago", dateStyle: "full", timeStyle: "short" })}</span>
               </div>
@@ -104,8 +96,6 @@ NEW CONSULTATION REQUEST
 Name: ${name}
 Email: ${email}
 Phone: ${phone}
-Practice: ${practice}
-Specialty: ${specialty}
 Submitted: ${new Date().toLocaleString()}
       `,
     };

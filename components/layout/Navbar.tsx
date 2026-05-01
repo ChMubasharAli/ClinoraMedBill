@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
 
 const NAV_LINKS = [
+  { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
   { href: "#rcm", label: "RCM" },
   { href: "#specialties", label: "Specialties" },
-  { href: "#about", label: "About" },
   { href: "#pricing", label: "Pricing" },
 ];
 
@@ -24,11 +24,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={scrolled ? "scrolled" : ""}>
+    <nav className={`nav-main ${scrolled ? "scrolled" : ""}`}>
       <Link className="nav-brand" href="/">
         <Logo className="nav-logo" />
         <div className="brand-name">
-          Clinora<em>Med</em>Bill
+          <img src="/secondaryLogo.png" className="secondaryImage" />
         </div>
       </Link>
       <div className="nav-links">

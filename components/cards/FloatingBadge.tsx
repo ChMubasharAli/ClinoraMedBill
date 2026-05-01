@@ -29,8 +29,6 @@ export default function FloatingBadge({
       style={{ animationDelay: `${delay}s` }}
     >
       <div className="bf-icon">
-        {showDot && <div className="bf-dot" />}
-        {icon}
         <div>
           <div className="bf-num">{value}</div>
           <div className="bf-lbl">{label}</div>

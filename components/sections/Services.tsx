@@ -12,8 +12,8 @@ const SERVICE_CARDS = [
     wide: true,
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -33,8 +33,8 @@ const SERVICE_CARDS = [
     tag: "Certified",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -56,8 +56,8 @@ const SERVICE_CARDS = [
     tag: "Real-time",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -78,8 +78,8 @@ const SERVICE_CARDS = [
     tag: "Automated",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -101,8 +101,8 @@ const SERVICE_CARDS = [
     tag: "Live Data",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -124,8 +124,8 @@ const SERVICE_CARDS = [
     tag: "Recovery",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -145,8 +145,8 @@ const SERVICE_CARDS = [
     tag: "Patient-First",
     icon: (
       <svg
-        width="22"
-        height="22"
+        width="28"
+        height="28"
         viewBox="0 0 24 24"
         fill="none"
         stroke="#2c8d93"
@@ -154,7 +154,7 @@ const SERVICE_CARDS = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <rect x="1" y="4" width="22" height="16" rx="2" />
+        <rect x="1" y="4" width="28" height="16" rx="2" />
         <line x1="1" y1="10" x2="23" y2="10" />
       </svg>
     ),
@@ -179,39 +179,7 @@ export default function Services() {
       </div>
 
       <div className="bento">
-        <BentoCard
-          number={SERVICE_CARDS[0].number}
-          icon={SERVICE_CARDS[0].icon}
-          title={SERVICE_CARDS[0].title}
-          description={SERVICE_CARDS[0].description}
-          tag={SERVICE_CARDS[0].tag}
-          variant="accent"
-          className="wide"
-        />
-
-        <BentoCard variant="soft">
-          <div className="big-stat">
-            98<sub>%</sub>
-          </div>
-          <div
-            className="card-h3"
-            style={{
-              marginTop: "14px",
-              fontSize: "16px",
-              color: "var(--navy)",
-            }}
-          >
-            Clean Claim Rate
-          </div>
-          <div
-            className="card-p"
-            style={{ fontSize: "12px", color: "var(--muted)" }}
-          >
-            Industry avg. is 75%
-          </div>
-        </BentoCard>
-
-        {SERVICE_CARDS.slice(1, 5).map((card) => (
+        {SERVICE_CARDS.map((card) => (
           <BentoCard
             key={card.number}
             number={card.number}
@@ -221,36 +189,6 @@ export default function Services() {
             tag={card.tag}
           />
         ))}
-
-        <BentoCard variant="soft">
-          <div className="big-stat">
-            35<sub>%</sub>
-          </div>
-          <div
-            className="card-h3"
-            style={{
-              marginTop: "14px",
-              fontSize: "16px",
-              color: "var(--navy)",
-            }}
-          >
-            Avg. Revenue Uplift
-          </div>
-          <div
-            className="card-p"
-            style={{ fontSize: "12px", color: "var(--muted)" }}
-          >
-            Across all clients in Year 1
-          </div>
-        </BentoCard>
-
-        <BentoCard
-          number={SERVICE_CARDS[6].number}
-          icon={SERVICE_CARDS[6].icon}
-          title={SERVICE_CARDS[6].title}
-          description={SERVICE_CARDS[6].description}
-          tag={SERVICE_CARDS[6].tag}
-        />
       </div>
     </section>
   );

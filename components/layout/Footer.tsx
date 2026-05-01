@@ -1,52 +1,23 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 
-const SERVICE_LINKS = [
-  { href: "#", label: "Revenue Cycle Management" },
-  { href: "#", label: "Medical Coding" },
-  { href: "#", label: "Claims Submission" },
-  { href: "#", label: "AR Management" },
-  { href: "#", label: "Denial Management" },
-  { href: "#", label: "Eligibility Verification" },
-  { href: "#", label: "Analytics & Reporting" },
-];
-
-const SPECIALTY_LINKS = [
-  { href: "#", label: "Family Medicine" },
-  { href: "#", label: "Cardiology" },
-  { href: "#", label: "Behavioral Health" },
-  { href: "#", label: "Orthopedics" },
-  { href: "#", label: "Telehealth" },
-  { href: "#", label: "Urgent Care" },
-  { href: "#", label: "All Specialties" },
-];
-
-const COMPANY_LINKS = [
-  { href: "#", label: "About Us" },
-  { href: "#", label: "Careers" },
-  { href: "#", label: "Blog" },
-  { href: "#", label: "Pricing" },
-  { href: "#", label: "Contact Us" },
-  { href: "#", label: "HIPAA Policy" },
-  { href: "#", label: "Privacy Policy" },
-];
-
-const BOTTOM_LINKS = [
-  { href: "#", label: "Privacy Policy" },
-  { href: "#", label: "Terms of Service" },
-  { href: "#", label: "HIPAA Notice" },
-  { href: "#", label: "Cookie Policy" },
-];
-
 export default function Footer() {
+  // WhatsApp Link Setup
+  const whatsappNumber = "19453350950"; // No spaces, dashes, or +
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hello ClinoraMedBill, I have a query regarding medical billing.")}`;
+
   return (
     <footer>
       <div className="footer-main">
-        <div>
+        <div className="footer-top">
           <Link className="f-logo" href="/">
-            <Logo width={30} height={30} />
-            <div className="f-logo-text">
-              Clinora<em>Med</em>Bill
+            <Logo className="nav-logo" />
+            <div className="brand-name">
+              <img
+                src="/secondaryLogo.png"
+                className="secondaryImage"
+                alt="ClinoraMedBill"
+              />
             </div>
           </Link>
           <p className="f-desc">
@@ -54,54 +25,73 @@ export default function Footer() {
             and reliable revenue cycle management for healthcare providers
             nationwide.
           </p>
-          <div className="f-badge">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#2c8d93"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            HIPAA Compliant
+          <div className="f-contact">
+            {/* Address */}
+            <div className="f-contact-item">
+              <div className="f-contact-icon">
+                <svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <span>5900 Balcones Drve STE 20866, Austin TX, 78731</span>
+            </div>
+
+            {/* Phone / WhatsApp Link */}
+            <div className="f-contact-item">
+              <div className="f-contact-icon">
+                <svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.15a16 16 0 006 6l1.52-1.52a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+                </svg>
+              </div>
+              {/* Ab is par click karne se WhatsApp khulega */}
+              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                +1 (945) 335-0950
+              </a>
+            </div>
+
+            {/* Email */}
+            <div className="f-contact-item">
+              <div className="f-contact-icon">
+                <svg
+                  width="24"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              </div>
+              <a href="mailto:info@clinoramedbill.com">
+                info@clinoramedbill.com
+              </a>
+            </div>
           </div>
         </div>
-        <FooterLinkColumn title="Services" links={SERVICE_LINKS} />
-        <FooterLinkColumn title="Specialties" links={SPECIALTY_LINKS} />
-        <FooterLinkColumn title="Company" links={COMPANY_LINKS} />
       </div>
       <div className="footer-bottom">
         <p>© 2026 ClinoraMedBill. All rights reserved.</p>
-        <div className="footer-btm-links">
-          {BOTTOM_LINKS.map((link) => (
-            <Link key={link.label} href={link.href}>
-              {link.label}
-            </Link>
-          ))}
-        </div>
       </div>
     </footer>
-  );
-}
-
-function FooterLinkColumn({
-  title,
-  links,
-}: {
-  title: string;
-  links: Array<{ href: string; label: string }>;
-}) {
-  return (
-    <div className="f-col">
-      <div className="f-col-h">{title}</div>
-      {links.map((link) => (
-        <Link key={link.label} href={link.href}>
-          {link.label}
-        </Link>
-      ))}
-    </div>
   );
 }
