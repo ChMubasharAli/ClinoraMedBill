@@ -1,3 +1,7 @@
+// app/page.tsx
+"use client";
+
+import { useState } from "react";
 import FloatingCallButton from "@/components/layout/FloatingCallButton";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
@@ -8,11 +12,17 @@ import Services from "@/components/sections/Services";
 import Specialties from "@/components/sections/Specialties";
 import Testimonials from "@/components/sections/Testimonials";
 import WhyUs from "@/components/sections/WhyUs";
+import ConsultationModal from "@/components/sections/ConsultationModal";
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <>
-      <Navbar />
+      <Navbar onOpenModal={openModal} />
       <main>
         <Hero />
         <Services />
@@ -20,10 +30,13 @@ export default function Home() {
         <WhyUs />
         <Specialties />
         <Testimonials />
-        <CTA />
+        <CTA onOpenModal={openModal} />
       </main>
       <Footer />
       <FloatingCallButton />
+
+      {/* Modal - only one instance for entire app */}
+      <ConsultationModal isOpen={isModalOpen} onClose={closeModal} />
     </>
   );
 }

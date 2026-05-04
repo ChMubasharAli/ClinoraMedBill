@@ -1,6 +1,9 @@
 import Link from "next/link";
+interface WhyUsProps {
+  onOpenModal: () => void;
+}
 
-export default function CTA() {
+export default function CTA({ onOpenModal }: WhyUsProps) {
   return (
     <section className="cta-section" id="audit">
       <div className="cta-inner">
@@ -17,12 +20,12 @@ export default function CTA() {
           </p>
         </div>
         <div className="cta-btns">
-          <Link className="btn-cta-w" href="#contact">
+          <button onClick={onOpenModal} className="btn-cta-w">
             Get My Free Audit →
-          </Link>
-          <Link className="btn-cta-o" href="#demo">
+          </button>
+          <button onClick={onOpenModal} className="btn-cta-o">
             Schedule a Call
-          </Link>
+          </button>
         </div>
       </div>
     </section>

@@ -12,7 +12,11 @@ const NAV_LINKS = [
   { href: "#pricing", label: "Pricing" },
 ];
 
-export default function Navbar() {
+interface WhyUsProps {
+  onOpenModal: () => void;
+}
+
+export default function Navbar({ onOpenModal }: WhyUsProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -39,12 +43,12 @@ export default function Navbar() {
         ))}
       </div>
       <div className="nav-right">
-        <Link className="btn-outline-nav" href="#demo">
+        <button onClick={onOpenModal} className="btn-outline-nav">
           Book Demo
-        </Link>
-        <Link className="btn-solid-nav" href="#audit">
+        </button>
+        <button onClick={onOpenModal} className="btn-solid-nav">
           Free Audit →
-        </Link>
+        </button>
       </div>
     </nav>
   );
